@@ -9,7 +9,7 @@
 
 
 * Qwerview
-  Some (60/40) people capable to programm their stuff amd not patient
+  Some (60/40) people capable to programm their stuff and not patient
   enough to learn programming. Every people is domain expert one way
   or another but only those in 'Some can delegate thair routine to
   machine and become meta expert.
@@ -18,20 +18,59 @@
 
 
 * Use case: Creating new project
-** Bootstrap application [/]
+** Bootstrap application
    (Assuming Erlang/Elixir installed on target system.)
 
    Chose project name like - `pet_automation.
-
-   - [ ] create empty project
+   
+*** Create empty project
      : mix new pet_automation
-   - [ ] add dependenties to `fabric engine
+     
+*** Add dependenties to `fabric engine
 #+BEGIN_SRC elixir
   defp deps do
       [{ :exdsl_fabric, "0.1", git: "https://github.com/SmallCell/exdsl_fabric.git" }]
   end
 #+END_SRC
-     : 
 
+   : mix deps.get
+
+*** Add minilanguages you intend to use
+#+BEGIN_SRC elixir
+    defp deps do
+        [
+         { :exdsl_fabric, "0.1", git: "https://github.com/SmallCell/exdsl_fabric.git" },
+         { :exdsl_shell, "0.1", git: "https://github.com/SmallCell/exdsl_shell.git" },
+         { :exdsl_nets, "0.1", git: "https://github.com/SmallCell/exdsl_nets.git" },
+         { :exdsl_fsm, "0.1", git: "https://github.com/SmallCell/exdsl_fsm.git" },
+        ]
+    end
+#+END_SRC
+
+
+** Create new script
    
-https://github.com/sasa1977/monadic.git
+   Add new script `install_db which use `shell mini language
+   : mix dsl.new install_db shell
+
+
+* Background
+
+** Minilanguages
+   
+   Borrowers
+   | Mini   | Desc                   | 
+   | expect | expect TCL extention   |
+   | shell  | based on python Fabric |
+   | FSM    | Erlang gen_fsm wrapper |
+   |        |                        |
+   
+** Metalanguages
+
+   | Meta    | Desc                                              | Model              |
+   | monadic | Fork from https://github.com/sasa1977/monadic.git | Monadic computaion |
+   | nets    | dependency network aka                            | Makefile           |
+   |         |                                                   |                    |
+   
+
+
