@@ -48,11 +48,12 @@
 #+END_SRC
 
 
-** Create new script
-   
-   Add new script `install_db which use `shell mini language
+** Create new script   
+   Add new script `install_db using `shell mini language
    : mix dsl.new install_db shell
-
+   
+   
+   https://github.com/taybin/mix_protobuffs/blob/master/lib/mix_protobuffs.ex
 
 * Background
 
@@ -73,4 +74,19 @@
    |         |                                                   |                    |
    
 
+* References
 
+  1. Douglas Crockford: Monads and Gonads http://www.youtube.com/watch?v=dkZFtimgAcM
+  2. functional combinators http://www.ittc-ku.net/Projects/SLDG/filing_cabinet/Hughes_Generalizing_Monads_to_Arrows.pdf
+  3. Higher Order Messaging http://www.metaobject.com/papers/HOM-Presentation.pdf
+     : do,collect,select,selectWhere:,reduce
+  4. Joe Armstrong
+#+BEGIN_SRC elixir
+  q = quote do
+        defprotocol MyInspect do
+          def inspect(thing, opts)
+        end
+    end
+
+    IO.puts Macro.to_binary(Macro.expand q, __ENV__)
+#+END_SRC
