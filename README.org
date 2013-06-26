@@ -37,14 +37,17 @@
 
 *** Add minilanguages you intend to use
 #+BEGIN_SRC elixir
-    defp deps do
-        [
-         { :exdsl_fabric, "0.1", git: "https://github.com/SmallCell/exdsl_fabric.git" },
-         { :exdsl_shell, "0.1", git: "https://github.com/SmallCell/exdsl_shell.git" },
-         { :exdsl_nets, "0.1", git: "https://github.com/SmallCell/exdsl_nets.git" },
-         { :exdsl_fsm, "0.1", git: "https://github.com/SmallCell/exdsl_fsm.git" },
-        ]
-    end
+  defp deps do
+      [
+       # Fabric to manage other minilanguages
+       { :exdsl_fabric, "0.1", git: "https://github.com/SmallCell/exdsl_fabric.git" },
+  
+       # Minilanguages
+       { :exdsl_shell, "0.1", git: "https://github.com/SmallCell/exdsl_shell.git" },
+       { :exdsl_nets, "0.1", git: "https://github.com/SmallCell/exdsl_nets.git" },
+       { :exdsl_fsm, "0.1", git: "https://github.com/SmallCell/exdsl_fsm.git" },
+      ]
+  end
 #+END_SRC
 
 
@@ -60,7 +63,8 @@
 ** Minilanguages
    
    Borrowers
-   | Mini   | Desc                   | 
+   | Mini   | Desc                   |
+   |--------+------------------------|
    | expect | expect TCL extention   |
    | shell  | based on python Fabric |
    | FSM    | Erlang gen_fsm wrapper |
@@ -69,8 +73,9 @@
 ** Metalanguages
 
    | Meta    | Desc                                              | Model              |
+   |---------+---------------------------------------------------+--------------------|
    | monadic | Fork from https://github.com/sasa1977/monadic.git | Monadic computaion |
-   | nets    | dependency network aka                            | Makefile           |
+   | nets    | dependency network                                | Makefile           |
    |         |                                                   |                    |
    
 
