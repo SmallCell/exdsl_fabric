@@ -69,6 +69,8 @@
    | shell  | based on python Fabric |
    | FSM    | Erlang gen_fsm wrapper |
    |        |                        |
+
+
    
 ** Metalanguages
 
@@ -78,6 +80,12 @@
    | nets    | dependency network                                | Makefile           |
    |         |                                                   |                    |
    
+*** Nets aka network dependencies 
+    
+    [[file:docs/nets_on_board.jpeg]]
+    
+    
+
 
 * References
 
