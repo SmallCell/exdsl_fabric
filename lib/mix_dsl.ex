@@ -1,25 +1,32 @@
 # File    : mix_dsl.ex
 
 defmodule Mix.Tasks.New.Dsl do
+    @hidden false
+    @shortdoc "Create new Fabric script."
     @moduledoc """
-Provides a way to create new script from template.
+Provides a way to create new Fabric script from template.
 
-   Example:
-   Create new script,  add script `install_db into lib using template from `shell and `nets mini languages.
+  : mix new.dsl --script SCRIPT [--out_dir PATH] [MODULES]
 
-   : mix new.dsl --script install_db shell nets
+Example:
+  Create new script, add script `install_db into lib using template
+  from `shell and `nets mini languages.
 
-   ## Command line options
+  : mix new.dsl --script install_db shell nets
 
-   * `--script`  - name of the script
-   * `--out_dir` - output directory
+## Command line options
+
+  * `--script`  - name of the script
+  * `--out_dir` - output directory
 
 """
     use Mix.Task
     alias Exdsl.Fabric.Template
 
     def run(args) do
-        { opts, langs } = OptionParser.parse(args, switches: [script: :string, out: :string])
+        Mix.shell Mix.Shell.IO
+
+        { opts, langs } = OptionParser.parse(args, switches: [])
         
         if opts[:script] do
 
@@ -37,7 +44,7 @@ Provides a way to create new script from template.
             
             :ok
         else
-            IO.puts ">> use --script switch to give name to script."
+            Mix.Shell.error "** (Fabric) use --script SCRIPT to name the script."
             :noop
         end
 
