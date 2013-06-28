@@ -16,6 +16,13 @@
 
   This programm is attemt to bring meta tools to the Domain Expert.
 
+  Design goals:
+  - is useful to developers while fixing bugs
+  - is portable among a variety of host computers
+  - permits testing interactive programs (ANSI console only)
+  - provides "glue" to link existing utilities together
+  - automate the generation of an user script
+  - can be used against remote target `expect style
 
 * Use case: Creating new project
 ** Bootstrap application
@@ -63,28 +70,69 @@
 ** Minilanguages
    
    Borrowers
-   | Mini   | Desc                   |
-   |--------+------------------------|
-   | expect | expect TCL extention   |
-   | shell  | based on python Fabric |
-   | FSM    | Erlang gen_fsm wrapper |
-   |        |                        |
+   | Name   | Desc                   | Model     |
+   |--------+------------------------+-----------|
+   | expect | expect TCL extention   | perl-exp  |
+   | shell  | based on python Fabric | py-fabric |
+   | fsm    | Erlang gen_fsm wrapper |           |
+   |        |                        |           |
 
 
    
 ** Metalanguages
 
-   | Meta    | Desc                                              | Model              |
-   |---------+---------------------------------------------------+--------------------|
-   | monadic | Fork from https://github.com/sasa1977/monadic.git | Monadic computaion |
-   | nets    | dependency network                                | Makefile           |
-   |         |                                                   |                    |
+   | Meta    | Desc                                              | Model                |
+   |---------+---------------------------------------------------+----------------------|
+   | monadic | Fork from https://github.com/sasa1977/monadic.git | Monadic computaion   |
+   | nets    | dependency network                                | Makefile             |
+   | guard   | handle events on file system modifications.       | http://guardgem.org/ |
+   |         |                                                   |                      |
    
-*** Nets aka network dependencies 
+*** Nets ( network dependencies )
     
     [[file:docs/nets_on_board.jpeg]]
     
     
+
+*** Guard
+    : mix guard.init
+    : mix guard.add live-reload
+
+    In replacement for light CI
+    : watchfs 'mix test' **/*.(ex|exs)
+
+#+BEGIN_SRC shell
+#!/bin/sh
+
+# echo $EXT
+
+CMD=$1
+echo $CMD
+
+shift
+FILES=$@
+echo $FILES
+
+# exit
+
+while true
+do
+    inotifywait -r -q --exclude ".*_flymake.*" --exclude "\.#.*"  $FILES
+    if [ $? -eq 0 ]; then
+	eval "$CMD"
+	RES=$?
+	TIME=`date +%T`
+	if [ $RES -eq 0 ]; then
+	    echo "\033[1;32m ($TIME)  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++\033[m"
+	else
+	    echo "\033[1;31m ($TIME)  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++\033[m"
+	fi
+    else
+	exit
+    fi
+done
+
+#+END_SRC
 
 
 * References
@@ -94,6 +142,10 @@
   3. Higher Order Messaging http://www.metaobject.com/papers/HOM-Presentation.pdf
      : do,collect,select,selectWhere:,reduce
   4. Joe Armstrong
+
+
+
+  Compile snippet:
 #+BEGIN_SRC elixir
   q = quote do
         defprotocol MyInspect do
@@ -103,3 +155,5 @@
 
     IO.puts Macro.to_binary(Macro.expand q, __ENV__)
 #+END_SRC
+
+ 
