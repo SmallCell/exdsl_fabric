@@ -70,23 +70,25 @@
 ** Minilanguages
    
    Borrowers
-   | Name   | Desc                   | Model     |
-   |--------+------------------------+-----------|
-   | expect | expect TCL extention   | perl-exp  |
-   | shell  | based on python Fabric | py-fabric |
-   | fsm    | Erlang gen_fsm wrapper |           |
-   |        |                        |           |
+   | Name   | Desc                   | Model                                |
+   |--------+------------------------+--------------------------------------|
+   | expect | expect TCL extention   | perl-exp                             |
+   | shell  | based on python Fabric | py-fabric # can have deps on expect? |
+   | fsm    | Erlang gen_fsm wrapper |                                      |
+   | logger | Erlang lager wrapper   |                                      |
 
 
    
 ** Metalanguages
 
-   | Meta    | Desc                                              | Model                |
-   |---------+---------------------------------------------------+----------------------|
-   | monadic | Fork from https://github.com/sasa1977/monadic.git | Monadic computaion   |
-   | nets    | dependency network                                | Makefile             |
-   | guard   | handle events on file system modifications.       | http://guardgem.org/ |
-   |         |                                                   |                      |
+   | Meta      | Desc                                              | Model                |
+   |-----------+---------------------------------------------------+----------------------|
+   | monadic   | Fork from https://github.com/sasa1977/monadic.git | Monadic computaion   |
+   | make      | dependency network                                | Makefile             |
+   | guard     | handle events on file system modifications.       | http://guardgem.org/ |
+   | sequencer | incapsulate monadic error, add paralel execution  | ?                    |
+   | pmap      | paralel mapper for command                        | onspot map-reduce    |
+   |           |                                                   |                      |
    
 *** Nets ( network dependencies )
     
